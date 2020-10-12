@@ -4,6 +4,31 @@
 // The leading semicolon is also a defensive measure when concatenating several
 // JavaScript files into one.
 
+// module aliases
+let Engine = Matter.Engine,
+    Render = Matter.Render,
+    World = Matter.World,
+    Bodies = Matter.Bodies,
+    Body = Matter.Body,
+    Events = Matter.Events;
+
+let canMovePlayer = true;
+let base,
+    mouth,
+    teethA,
+    teethB,
+    fruit,
+    ground,
+    butWidth,
+    butHeight,
+    button;
+// Get the game field width/height.
+// Note that the logical ingame width/height will always be as they are in config.js
+// (in this example it is 540x960). Logical ingame pixels automatically scale to
+// physical canvas style size.
+const GAME_WIDTH = resizer.getGameWidth();
+const GAME_HEIGHT = resizer.getGameHeight();
+
 ;(function () {
 
     // This line enables 'strict mode'. It helps you to write cleaner code,
@@ -80,29 +105,12 @@
     // Function definitions
     /////////////////////////////////////
 
-    // module aliases
-    let Engine = Matter.Engine,
-        Render = Matter.Render,
-        World = Matter.World,
-        Bodies = Matter.Bodies,
-        Body = Matter.Body,
-        Events = Matter.Events;
-
     let engine;
 
     let render;
 
     // Example helper function to do an arbitrary thing with the canvas
     let doSomething = (function() {
-
-        // copy everything from MonsterPhysics into here?
-
-        // Get the game field width/height.
-        // Note that the logical ingame width/height will always be as they are in config.js
-        // (in this example it is 540x960). Logical ingame pixels automatically scale to
-        // physical canvas style size.
-        const GAME_WIDTH = resizer.getGameWidth();
-        const GAME_HEIGHT = resizer.getGameHeight();
 
         // constants
         let SIZE_FACTOR = GAME_WIDTH * GAME_HEIGHT / 640000; 
@@ -112,20 +120,18 @@
         let MOUTH_SIZE = GAME_WIDTH/5;
 
         // creates all necessary game objects
-        let base = Bodies.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 110 * SIZE_FACTOR, 100 * SIZE_FACTOR, 160 * SIZE_FACTOR, { isStatic: true });
-        let mouth = Bodies.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 170 * SIZE_FACTOR, MOUTH_SIZE, MOUTH_SIZE/2, { isStatic: true });
-        let teethA = Bodies.polygon(GAME_WIDTH / 2 - 30 * SIZE_FACTOR, GAME_HEIGHT - 200 * SIZE_FACTOR, 3, 20 * SIZE_FACTOR, { isStatic: true })
+        base = Bodies.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 110 * SIZE_FACTOR, 100 * SIZE_FACTOR, 160 * SIZE_FACTOR, { isStatic: true });
+        mouth = Bodies.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 170 * SIZE_FACTOR, MOUTH_SIZE, MOUTH_SIZE/2, { isStatic: true });
+        teethA = Bodies.polygon(GAME_WIDTH / 2 - 30 * SIZE_FACTOR, GAME_HEIGHT - 200 * SIZE_FACTOR, 3, 20 * SIZE_FACTOR, { isStatic: true })
         Body.rotate(teethA, 7 * (Math.PI / 6));
-        let teethB = Bodies.polygon(GAME_WIDTH / 2 + 30 * SIZE_FACTOR, GAME_HEIGHT - 200 * SIZE_FACTOR, 3, 20 * SIZE_FACTOR, { isStatic: true })
+        teethB = Bodies.polygon(GAME_WIDTH / 2 + 30 * SIZE_FACTOR, GAME_HEIGHT - 200 * SIZE_FACTOR, 3, 20 * SIZE_FACTOR, { isStatic: true })
         Body.rotate(teethB, 7 * (Math.PI / 6));
-        let fruit;
-        let ground = Bodies.rectangle(GAME_WIDTH / 2 - 10, GAME_HEIGHT, GAME_WIDTH + 20, 110 * SIZE_FACTOR, { isStatic: true });
+        fruit;
+        ground = Bodies.rectangle(GAME_WIDTH / 2 - 10, GAME_HEIGHT, GAME_WIDTH + 20, 110 * SIZE_FACTOR, { isStatic: true });
         ground.collisionFilter.mask = -1;
-        let butWidth = 150 * SIZE_FACTOR;
-        let butHeight = 100 * SIZE_FACTOR;
-        let button = Bodies.rectangle(GAME_WIDTH - butHeight * 1.5, butHeight * 1.5, butWidth, butHeight, { isStatic: true });
-
-        let canMovePlayer = true;
+        butWidth = 150 * SIZE_FACTOR;
+        butHeight = 100 * SIZE_FACTOR;
+        button = Bodies.rectangle(GAME_WIDTH - butHeight * 1.5, butHeight * 1.5, butWidth, butHeight, { isStatic: true });
 
         let x = Bodies.circle(50, 50, 50, {isStatic : true});
         let y = Bodies.circle(25, 25, 25, {isStatic : true});
