@@ -82,7 +82,7 @@
     // Example helper function to do an arbitrary thing with the canvas
     let doSomething = (function() {
 
-        // copy function into here?
+        // copy everything from MonsterPhysics into here?
 
         // Get the game field width/height.
         // Note that the logical ingame width/height will always be as they are in config.js
