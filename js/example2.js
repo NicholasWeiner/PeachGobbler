@@ -13,10 +13,7 @@ let Engine = Matter.Engine,
     Events = Matter.Events;
 
 let canMovePlayer = true;
-let base,
-    mouth,
-    teethA,
-    teethB,
+let mouth,
     fruit,
     ground,
     butWidth,
@@ -28,6 +25,10 @@ let base,
 // physical canvas style size.
 const GAME_WIDTH = resizer.getGameWidth();
 const GAME_HEIGHT = resizer.getGameHeight();
+const SIZE_FACTOR = GAME_WIDTH * GAME_HEIGHT / 640000; 
+// this is a magic number, but I'm not totally sure how to remove it
+// it represents the SIZE_FACTOR of the game in it's intitial conditions when I developed it.
+const MOUTH_SIZE = GAME_WIDTH/5;
 
 ;(function () {
 
@@ -110,28 +111,17 @@ const GAME_HEIGHT = resizer.getGameHeight();
     let render;
 
     // Example helper function to do an arbitrary thing with the canvas
-    let doSomething = (function() {
+    function doSomething() {
 
-        // constants
-        let SIZE_FACTOR = GAME_WIDTH * GAME_HEIGHT / 640000; 
-        // this is a magic number, but I'm not totally sure how to remove it
-        // it represents the SIZE_FACTOR of the game in it's intitial conditions when I developed it.
-        let BALL_RADIUS = GAME_WIDTH/20;
-        let MOUTH_SIZE = GAME_WIDTH/5;
+        const BALL_RADIUS = GAME_WIDTH/20;
 
         // creates all necessary game objects
-        base = Bodies.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 110 * SIZE_FACTOR, 100 * SIZE_FACTOR, 160 * SIZE_FACTOR, { isStatic: true });
         mouth = Bodies.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 170 * SIZE_FACTOR, MOUTH_SIZE, MOUTH_SIZE/2, { isStatic: true });
-        teethA = Bodies.polygon(GAME_WIDTH / 2 - 30 * SIZE_FACTOR, GAME_HEIGHT - 200 * SIZE_FACTOR, 3, 20 * SIZE_FACTOR, { isStatic: true })
-        Body.rotate(teethA, 7 * (Math.PI / 6));
-        teethB = Bodies.polygon(GAME_WIDTH / 2 + 30 * SIZE_FACTOR, GAME_HEIGHT - 200 * SIZE_FACTOR, 3, 20 * SIZE_FACTOR, { isStatic: true })
-        Body.rotate(teethB, 7 * (Math.PI / 6));
-        fruit;
         ground = Bodies.rectangle(GAME_WIDTH / 2 - 10, GAME_HEIGHT, GAME_WIDTH + 20, 110 * SIZE_FACTOR, { isStatic: true });
         ground.collisionFilter.mask = -1;
         butWidth = 150 * SIZE_FACTOR;
         butHeight = 100 * SIZE_FACTOR;
-        button = Bodies.rectangle(GAME_WIDTH - butHeight * 1.5, butHeight * 1.5, butWidth, butHeight, { isStatic: true });
+        button = Bodies.rectangle(GAME_WIDTH - butHeight * 1.5, butHeight * 2, butWidth, butHeight, { isStatic: true });
 
         let x = Bodies.circle(50, 50, 50, {isStatic : true});
         let y = Bodies.circle(25, 25, 25, {isStatic : true});
@@ -169,7 +159,7 @@ const GAME_HEIGHT = resizer.getGameHeight();
 
             // add all of the bodies to the world
             if(levelQueue.length != 0) {
-                World.add(engine.world, [ground, base, fruit, teethA, teethB, mouth, button].concat(levelQueue.shift())/*.concat(decode(levelQueue.shift()))*/);
+                World.add(engine.world, [ground, fruit, mouth, button].concat(levelQueue.shift())/*.concat(decode(levelQueue.shift()))*/);
             }
 
             // run the engine
@@ -249,7 +239,7 @@ const GAME_HEIGHT = resizer.getGameHeight();
         }
 
         render_func();
-    })();
+    }
 
     
 
@@ -278,10 +268,7 @@ function move(event) {
             mousex = 0;
         }
 
-        Body.translate(mouth, { x: mousex - mouth.position.x, y: 0 });
-        Body.translate(teethA, { x: mousex - teethA.position.x - 30 * SIZE_FACTOR, y: 0 });
-        Body.translate(teethB, { x: mousex - teethB.position.x + 30 * SIZE_FACTOR, y: 0 });
-        Body.translate(base, { x: mousex - base.position.x, y: 0 });
+        Body.setPosition(mouth, { x: mousex + MOUTH_SIZE/2, y: mouth.position.y });
     }
 }
 
@@ -297,7 +284,10 @@ function startButtonPressed(event) {
     let mousey = event.touches[0].clientY;
     let butxrange = [button.position.x - butWidth / 2, button.position.x + butWidth / 2];
     let butyrange = [button.position.y - butHeight / 2, button.position.y + butHeight / 2];
+    console.log(mousex >= butxrange[0] && mousex <= butxrange[1]);
+    console.log(mousey >= butyrange[0] && mousey <= butyrange[1]);
     if (mousex >= butxrange[0] && mousex <= butxrange[1] && mousey >= butyrange[0] && mousey <= butyrange[1]) {
         phase2();
+        console.log("pressed");
     }
 }
