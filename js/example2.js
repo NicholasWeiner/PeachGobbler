@@ -19,6 +19,7 @@ let mouth,
     butWidth,
     butHeight,
     button;
+
 // Get the game field width/height.
 // Note that the logical ingame width/height will always be as they are in config.js
 // (in this example it is 540x960). Logical ingame pixels automatically scale to
@@ -121,7 +122,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
         ground.collisionFilter.mask = -1;
         butWidth = 150 * SIZE_FACTOR;
         butHeight = 100 * SIZE_FACTOR;
-        button = Bodies.rectangle(GAME_WIDTH - butHeight * 1.5, butHeight * 2, butWidth, butHeight, { isStatic: true });
+        button = Bodies.rectangle(GAME_WIDTH - butHeight * 1.5, butHeight * 1.5, butWidth, butHeight, { isStatic: true });
 
         let x = Bodies.circle(50, 50, 50, {isStatic : true});
         let y = Bodies.circle(25, 25, 25, {isStatic : true});
@@ -143,7 +144,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
             // it should clear after intitializing the new fruit
             // maybe place an object under it that's invisible?
             // or make a super script that intializes this script every time
-            fruit = Bodies.circle(GAME_WIDTH / 2, 50, BALL_RADIUS, {isStatic : true});
+            fruit = Bodies.circle(GAME_WIDTH / 2, 150 * SIZE_FACTOR, BALL_RADIUS, {isStatic : true});
             fruit.collisionFilter.group = -1;
 
             // create a renderer
@@ -159,7 +160,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
 
             // add all of the bodies to the world
             if(levelQueue.length != 0) {
-                World.add(engine.world, [ground, fruit, mouth, button].concat(levelQueue.shift())/*.concat(decode(levelQueue.shift()))*/);
+                World.add(engine.world, [ground, fruit, mouth/*, button*/].concat(levelQueue.shift())/*.concat(decode(levelQueue.shift()))*/);
             }
 
             // run the engine
@@ -183,7 +184,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
                         clear();
                     }
                     // if one is ground and the other is fruit, lose
-                    if (bodyA === ground || bodyB === ground) {
+                    else if (bodyA === ground || bodyB === ground) {
                         console.log("lose");
                         clear();
                     }
@@ -264,7 +265,7 @@ function move(event) {
         if (mousex > GAME_WIDTH) {
             mousex = GAME_WIDTH;
         }
-        if (mousex < 0) {
+        else if (mousex < 0) {
             mousex = 0;
         }
 
@@ -278,16 +279,24 @@ function phase2() {
     Body.setStatic(fruit, false);
 }
 
-// checks if the start button is pressed
-function startButtonPressed(event) {
-    let mousex = event.touches[0].clientX;
-    let mousey = event.touches[0].clientY;
-    let butxrange = [button.position.x - butWidth / 2, button.position.x + butWidth / 2];
-    let butyrange = [button.position.y - butHeight / 2, button.position.y + butHeight / 2];
-    console.log(mousex >= butxrange[0] && mousex <= butxrange[1]);
-    console.log(mousey >= butyrange[0] && mousey <= butyrange[1]);
-    if (mousex >= butxrange[0] && mousex <= butxrange[1] && mousey >= butyrange[0] && mousey <= butyrange[1]) {
-        phase2();
-        console.log("pressed");
+document.addEventListener("keypress", function(event) {
+    if (event.key == ' ') {
+      phase2();
     }
-}
+});
+
+// checks if the start button is pressed
+// function startButtonPressed(event) {
+//     let mousex = event.touches[0].clientX;
+//     let mousey = event.touches[0].clientY;
+//     let butxrange = [button.position.x - butWidth / 2, button.position.x + butWidth / 2];
+//     let butyrange = [button.position.y - butHeight / 2, button.position.y + butHeight / 2];
+//     console.log("x: ");
+//     console.log(mousex >= butxrange[0] && mousex <= butxrange[1]);
+//     console.log("y: ");
+//     console.log(mousey >= butyrange[0] && mousey <= butyrange[1]);
+//     if (mousex >= butxrange[0] && mousex <= butxrange[1] && mousey >= butyrange[0] && mousey <= butyrange[1]) {
+//         phase2();
+//         console.log("pressed");
+//     }
+// }
