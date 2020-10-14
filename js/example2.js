@@ -151,6 +151,8 @@ const MOUTH_SIZE = GAME_WIDTH/5;
             render = Render.create({
                 element: document.body,
                 canvas: myCanvas,
+                // these options likely represent the whole game screen rather than the mobile screen
+                // is there a way to get the mobile screen dimensions?
                 options: {
                     width: GAME_WIDTH,
                     height: GAME_HEIGHT
