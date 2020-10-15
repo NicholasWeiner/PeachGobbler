@@ -140,12 +140,10 @@ const MOUTH_SIZE = GAME_WIDTH/5;
             // for some reason, at SIZE_FACTOR, collisions are not detected but they are at 95% original speed 
             engine.world.gravity.y = SIZE_FACTOR * .95;
 
-            // why does fruit keep it's gravity?
-            // it should clear after intitializing the new fruit
-            // maybe place an object under it that's invisible?
-            // or make a super script that intializes this script every time
             fruit = Bodies.circle(GAME_WIDTH / 2, 150 * SIZE_FACTOR, BALL_RADIUS, {isStatic : true});
             fruit.collisionFilter.group = -1;
+
+            Body.setPosition(mouth, {x: GAME_WIDTH / 2, y: GAME_HEIGHT - 170 * SIZE_FACTOR});
 
             // create a renderer
             render = Render.create({
