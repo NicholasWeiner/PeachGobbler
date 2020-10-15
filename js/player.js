@@ -26,9 +26,12 @@ let mouth,
 // physical canvas style size.
 const GAME_WIDTH = resizer.getGameWidth();
 const GAME_HEIGHT = resizer.getGameHeight();
+
+// ratio that is used for various game calculations to ensure size of objects is correct
 const SIZE_FACTOR = GAME_WIDTH * GAME_HEIGHT / 640000; 
 // this is a magic number, but I'm not totally sure how to remove it
 // it represents the SIZE_FACTOR of the game in it's intitial conditions when I developed it.
+
 const MOUTH_SIZE = GAME_WIDTH/5;
 
 ;(function () {
@@ -284,19 +287,3 @@ document.addEventListener("keypress", function(event) {
       phase2();
     }
 });
-
-// checks if the start button is pressed
-// function startButtonPressed(event) {
-//     let mousex = event.touches[0].clientX;
-//     let mousey = event.touches[0].clientY;
-//     let butxrange = [button.position.x - butWidth / 2, button.position.x + butWidth / 2];
-//     let butyrange = [button.position.y - butHeight / 2, button.position.y + butHeight / 2];
-//     console.log("x: ");
-//     console.log(mousex >= butxrange[0] && mousex <= butxrange[1]);
-//     console.log("y: ");
-//     console.log(mousey >= butyrange[0] && mousey <= butyrange[1]);
-//     if (mousex >= butxrange[0] && mousex <= butxrange[1] && mousey >= butyrange[0] && mousey <= butyrange[1]) {
-//         phase2();
-//         console.log("pressed");
-//     }
-// }
