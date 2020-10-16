@@ -272,7 +272,7 @@ function move(event) {
             mousex = 0;
         }
 
-        // another magic number used here - not sure why 2 makes this work but it does
+        // another magic number used here - not sure why 2 makes this work but it does (on mobile, it doesnt work on desktop)
         Body.setPosition(mouth, { x: 2 * mousex, y: mouth.position.y });
     }
 }
