@@ -272,7 +272,8 @@ function move(event) {
             mousex = 0;
         }
 
-        Body.setPosition(mouth, { x: mousex + MOUTH_SIZE/2, y: mouth.position.y });
+        // another magic number used here - not sure why 2 makes this work but it does
+        Body.setPosition(mouth, { x: 2 * mousex, y: mouth.position.y });
     }
 }
 
