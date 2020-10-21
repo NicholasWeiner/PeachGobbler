@@ -1,8 +1,4 @@
-// This IIFE (aka closure) is for style preference only; it helps to prevent
-// things inside from polluting the global namespace. It is completely optional.
-
-// The leading semicolon is also a defensive measure when concatenating several
-// JavaScript files into one.
+// Player for PeachGobbler
 
 // module aliases
 let Engine = Matter.Engine,
