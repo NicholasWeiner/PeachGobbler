@@ -50,7 +50,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
 
     // Grab some important values from the resizer
     let myCanvas = resizer.getCanvas();
-    let myContext = myCanvas.getContext("2d");
+    //let myContext = myCanvas.getContext("2d");
 
     // Is the game volume muted?
     let volumeMuted = false;
@@ -126,7 +126,10 @@ const MOUTH_SIZE = GAME_WIDTH/5;
         let x = Bodies.circle(50, 50, 50, {isStatic : true});
         let y = Bodies.circle(25, 25, 25, {isStatic : true});
 
-        let levelQueue = [[x], [y], [x], [y]];
+        let json = '[{"xpos":312.49407810044613,"ypos":479.1056235562246,"shapeType":1,"rotation":3.411748515566235,"properties":{"width":115.67187703891395,"height":166.70656165578117}},{"xpos":277.53292913726716,"ypos":623.6383151443931,"shapeType":4,"rotation":1.3040191666353589,"properties":{"slope":2,"width":96.55734689274962,"height":125.00331816559205}}]';
+        console.log(json);
+        let levelQueue = decode(json);
+        console.log(levelQueue);
 
         function render_func() {
 
@@ -202,40 +205,44 @@ const MOUTH_SIZE = GAME_WIDTH/5;
             render_func();
         }
 
-        // takes in a level json, returns the level as an array of Matte.js Bodies
+        // takes in a level json, returns the level as an array of Matter.js Bodies
         function decode(shapesText) {
-            let parse = JSON.parse(shapesText);
-            console.log(parse);
-            shapes = [];
+            let parsed = JSON.parse(shapesText);
+            console.log(parsed);
+            let shapes = [];
+            console.log(parsed.length);
 
-            for (let i = 0; i < parse.length; i++) {
-                let shape;
+            shapes = parsed.map(jShape_to_matterShape);
 
-                switch (parse[i].shapeType) {
-                    case 0:
-                        shape = Bodies.rectangle(parse[i].xpos, parse[i].ypos, parse[i].properties.length, parse[i].properties.length, { isStatic: true });
-                        break;
-                    case 1:
-                        shape = Bodies.rectangle(parse[i].xpos, parse[i].ypos, parse[i].properties.width, parse[i].properties.height, { isStatic: true });
-                        break;
-                    case 2:
-                        shape = Bodies.circle(parse[i].xpos, parse[i].ypos, parse[i].properties.radius, { isStatic: true });
-                        break;
-                    // possibly remove/revise triangles/trapezoids to deal with phasing issue
-                    // phasing issues seem to be resolved with bigger fruit and slower gravity
-                    case 3:
-                    case 4:
-                        shape = Bodies.trapezoid(parse[i].xpos, parse[i].ypos, parse[i].properties.width, parse[i].properties.height, parse[i].properties.slope, { isStatic: true });
-                }
-
-                shape.collisionFilter.mask = -1;
-                shape.friction = 0.025;
-                Body.rotate(shape, parse[i].rotation);
-
-                shapes[i] = shape;
-            }
+            console.log(shapes);
 
             return shapes;
+        }
+
+        function jShape_to_matterShape(jShape) {
+            let shape;
+            switch(jShape.shapeType){
+                case 0:
+                    shape = Bodies.rectangle(jShape.xpos, jShape.ypos, jShape.properties.length, jShape.properties.length, { isStatic: true });
+                    break;
+                case 1:
+                    shape = Bodies.rectangle(jShape.xpos, jShape.ypos, jShape.properties.width, jShape.properties.height, { isStatic: true });
+                    break;
+                case 2:
+                    shape = Bodies.circle(jShape.xpos, jShape.ypos, jShape.properties.radius, { isStatic: true });
+                    break;
+                // possibly remove/revise triangles/trapezoids to deal with phasing issue
+                // phasing issues seem to be resolved with bigger fruit and slower gravity
+                case 3:
+                case 4:
+                    shape = Bodies.trapezoid(jShape.xpos, jShape.ypos, jShape.properties.width, jShape.properties.height, jShape.properties.slope, { isStatic: true });
+            }
+
+            shape.collisionFilter.mask = -1;
+            shape.friction = 0.025;
+            Body.rotate(shape, jShape.rotation);
+
+            return shape;
         }
 
         render_func();
