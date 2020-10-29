@@ -1,5 +1,7 @@
 // Player for PeachGobbler
 
+const db = firebase.firestore();
+
 // module aliases
 let Engine = Matter.Engine,
     Render = Matter.Render,
@@ -126,6 +128,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
         let x = Bodies.circle(50, 50, 50, {isStatic : true});
         let y = Bodies.circle(25, 25, 25, {isStatic : true});
 
+        getOneLevel();
         let json = '[{"xpos":312.49407810044613,"ypos":479.1056235562246,"shapeType":1,"rotation":3.411748515566235,"properties":{"width":115.67187703891395,"height":166.70656165578117}},{"xpos":277.53292913726716,"ypos":623.6383151443931,"shapeType":4,"rotation":1.3040191666353589,"properties":{"slope":2,"width":96.55734689274962,"height":125.00331816559205}}]';
         let levelQueue = [decode(json), [x], [y]];
 
@@ -284,3 +287,21 @@ document.addEventListener("keypress", function(event) {
       phase2();
     }
 });
+
+function getLevels(upper, lower) {
+    data = [];
+    db.collection("PGLevels").where("score", "<", upper).where("score", ">", lower)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            data.push(doc.data());
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
+    return data;
+}
