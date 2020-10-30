@@ -1,7 +1,4 @@
 // Player for PeachGobbler
-
-const db = firebase.firestore();
-
 // module aliases
 let Engine = Matter.Engine,
     Render = Matter.Render,
@@ -113,7 +110,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
     let render;
 
     // Example helper function to do an arbitrary thing with the canvas
-    function doSomething() {
+    function startPlayer() {
 
         const BALL_RADIUS = GAME_WIDTH/20;
 
@@ -254,7 +251,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
     /////////////////////////////////////
 
     // Begin the arbitrary thing example loop
-    doSomething();
+    startPlayer();
 
 
 // Close and execute the IIFE here
@@ -287,21 +284,3 @@ document.addEventListener("keypress", function(event) {
       phase2();
     }
 });
-
-function getLevels(upper, lower) {
-    data = [];
-    db.collection("PGLevels").where("score", "<", upper).where("score", ">", lower)
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-            data.push(doc.data());
-        });
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
-
-    return data;
-}
