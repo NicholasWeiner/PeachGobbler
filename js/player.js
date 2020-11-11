@@ -105,6 +105,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
     // Function definitions
     /////////////////////////////////////
 
+    // keep these defined outside so they can be accessed by other functions
     let engine;
 
     let render;
