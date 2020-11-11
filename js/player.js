@@ -122,11 +122,9 @@ const MOUTH_SIZE = GAME_WIDTH/5;
         butHeight = 100 * SIZE_FACTOR;
         button = Bodies.rectangle(GAME_WIDTH - butHeight * 1.5, butHeight * 1.5, butWidth, butHeight, { isStatic: true });
 
-        let x = Bodies.circle(50, 50, 50, {isStatic : true});
-        let y = Bodies.circle(25, 25, 25, {isStatic : true});
-
-        let json = '[{"xpos":312.49407810044613,"ypos":479.1056235562246,"shapeType":1,"rotation":3.411748515566235,"properties":{"width":115.67187703891395,"height":166.70656165578117}},{"xpos":277.53292913726716,"ypos":623.6383151443931,"shapeType":4,"rotation":1.3040191666353589,"properties":{"slope":2,"width":96.55734689274962,"height":125.00331816559205}}]';
-        let levelQueue = [decode(json), [x], [y]];
+        let json = '[{"xpos":371.9147315881795,"ypos":494.88817043119207,"shapeType":4,"rotation":0.3340231086395081,"properties":{"slope":2,"width":178.7271253663847,"height":113.90748525897169}},{"xpos":296.0589322087743,"ypos":632.3426341922516,"shapeType":3,"rotation":3.5387053623678693,"properties":{"slope":1,"width":161.18699204198467,"height":90.4291058185417}},{"xpos":376.3022751221066,"ypos":359.8324137272846,"shapeType":4,"rotation":3.229756832442033,"properties":{"slope":2,"width":125.11330835222978,"height":160.4172850233101}}]'
+        let json2 = '[{"xpos":277.5689620527302,"ypos":605.9286650024841,"shapeType":1,"rotation":5.488000456649611,"properties":{"width":148.65017407217584,"height":177.36815615513513}},{"xpos":347.96776647239267,"ypos":611.3406337593758,"shapeType":3,"rotation":4.875277369441641,"properties":{"slope":1,"width":69.58921422788849,"height":167.57590453962968}},{"xpos":132.54008636243043,"ypos":416.6098260317731,"shapeType":0,"rotation":5.004313430709568,"properties":{"length":71.98947150764735}}]'
+        let levelQueue = [decode(json), decode(json2), [y]];
 
         function render_func() {
 
