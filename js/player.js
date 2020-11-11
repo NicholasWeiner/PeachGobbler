@@ -124,7 +124,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
 
         let json = '[{"xpos":371.9147315881795,"ypos":494.88817043119207,"shapeType":4,"rotation":0.3340231086395081,"properties":{"slope":2,"width":178.7271253663847,"height":113.90748525897169}},{"xpos":296.0589322087743,"ypos":632.3426341922516,"shapeType":3,"rotation":3.5387053623678693,"properties":{"slope":1,"width":161.18699204198467,"height":90.4291058185417}},{"xpos":376.3022751221066,"ypos":359.8324137272846,"shapeType":4,"rotation":3.229756832442033,"properties":{"slope":2,"width":125.11330835222978,"height":160.4172850233101}}]'
         let json2 = '[{"xpos":277.5689620527302,"ypos":605.9286650024841,"shapeType":1,"rotation":5.488000456649611,"properties":{"width":148.65017407217584,"height":177.36815615513513}},{"xpos":347.96776647239267,"ypos":611.3406337593758,"shapeType":3,"rotation":4.875277369441641,"properties":{"slope":1,"width":69.58921422788849,"height":167.57590453962968}},{"xpos":132.54008636243043,"ypos":416.6098260317731,"shapeType":0,"rotation":5.004313430709568,"properties":{"length":71.98947150764735}}]'
-        let levelQueue = [decode(json), decode(json2), [y]];
+        let levelQueue = [decode(json), decode(json2)];
 
         function render_func() {
 
