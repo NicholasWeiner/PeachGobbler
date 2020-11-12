@@ -199,6 +199,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
             });
         }
 
+        // clears world and gets it ready for next level
         function clear() {
             //console.log("cleared");
             console.log("score: " + score)
