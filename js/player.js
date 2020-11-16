@@ -286,18 +286,10 @@ function move(event) {
 }
 
 document.onclick= function(event) {
-    // there are some magic numbers here, not sure why this offset exists but it does
-    // maybe there is some difference in the way matter.js and regular javascript calculates coordinate distance
-    const FRUITX = GAME_WIDTH / 2 - 100;
-    const FRUITY = 150 * SIZE_FACTOR - 50;
-    const FRUITRAD = GAME_WIDTH/20;
-    
-    let mousex = event.clientX;
+    const CUTOFF = GAME_HEIGHT / 5;
     let mousey = event.clientY;
 
-    if(mousex >= FRUITX - FRUITRAD && mousex < FRUITX + FRUITRAD && mousey >= FRUITY - FRUITRAD && mousey < FRUITY + FRUITRAD) {
-        console.log(FRUITX);
-        console.log(FRUITY);
+    if(mousey < CUTOFF) {
         phase2();
     }
 };
