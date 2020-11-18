@@ -285,7 +285,9 @@ function move(event) {
     }
 }
 
+// takes care of click and touch click events
 document.onclick= function(event) {
+    // activates phase 2 if you touch the top 5th of the screen
     const CUTOFF = GAME_HEIGHT / 5;
     let mousey = event.clientY;
 
