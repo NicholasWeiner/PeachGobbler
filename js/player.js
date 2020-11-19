@@ -291,7 +291,7 @@ document.onclick= function(event) {
     const CUTOFF = GAME_HEIGHT / 5;
     let mousey = event.clientY;
 
-    if(mousey < CUTOFF) {
+    if(mousey <= CUTOFF) {
         phase2();
     }
 };
