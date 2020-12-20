@@ -24,13 +24,13 @@ const GAME_WIDTH = resizer.getGameWidth();
 const GAME_HEIGHT = resizer.getGameHeight();
 
 // ratio that is used for various game calculations to ensure size of objects is correct
-const SIZE_FACTOR = GAME_WIDTH * GAME_HEIGHT / 640000; 
+const SIZE_FACTOR = GAME_WIDTH * GAME_HEIGHT / 640000;
 // this is a magic number, but I'm not totally sure how to remove it
 // it represents the SIZE_FACTOR of the game in it's intitial conditions when I developed it.
 
-const MOUTH_SIZE = GAME_WIDTH/5;
+const MOUTH_SIZE = GAME_WIDTH / 5;
 
-;(function () {
+; (function () {
 
     // This line enables 'strict mode'. It helps you to write cleaner code,
     // like preventing you from using undeclared variables.
@@ -81,7 +81,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
 
     // Confirm the user wants to restart the game
     // (restart not yet implemented, so show "not implemented" menu)
-    template.addConfirm(template.menuButtons.restart, "RESTART", function() {
+    template.addConfirm(template.menuButtons.restart, "RESTART", function () {
         template.showMenu(template.menus.notImplemented);
     });
 
@@ -100,7 +100,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
         }
     }, false);
 
-    
+
 
     /////////////////////////////////////
     // Function definitions
@@ -114,10 +114,10 @@ const MOUTH_SIZE = GAME_WIDTH/5;
     // Example helper function to do an arbitrary thing with the canvas
     function startPlayer() {
 
-        const BALL_RADIUS = GAME_WIDTH/20;
+        const BALL_RADIUS = GAME_WIDTH / 20;
 
         // creates all necessary game objects
-        mouth = Bodies.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 170 * SIZE_FACTOR, MOUTH_SIZE, MOUTH_SIZE/2, { isStatic: true });
+        mouth = Bodies.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 170 * SIZE_FACTOR, MOUTH_SIZE, MOUTH_SIZE / 2, { isStatic: true });
         ground = Bodies.rectangle(GAME_WIDTH / 2 - 10, GAME_HEIGHT, GAME_WIDTH + 20, 110 * SIZE_FACTOR, { isStatic: true });
         ground.collisionFilter.mask = -1;
         butWidth = 150 * SIZE_FACTOR;
@@ -133,7 +133,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
         let json5 = '[{"xpos":434.37942930937237,"ypos":583.8133737747173,"shapeType":4,"rotation":5.874809965121344,"properties":{"slope":2,"width":70.30680271107389,"height":89.13664606872719}},{"xpos":200.29701801445077,"ypos":450.181586757121,"shapeType":2,"rotation":2.1979852630008176,"properties":{"radius":52.134508887307355}},{"xpos":362.5572193248998,"ypos":533.1820742761458,"shapeType":0,"rotation":6.1933269998807505,"properties":{"length":101.60841270824848}}]';
         let json6 = '[{"xpos":115.98250117370968,"ypos":311.44904168173946,"shapeType":2,"rotation":4.363559610898064,"properties":{"radius":53.86332175897119}},{"xpos":187.1404866288708,"ypos":530.0966832579161,"shapeType":2,"rotation":2.012048449245027,"properties":{"radius":57.0227805416704}},{"xpos":392.335112611209,"ypos":285.2442150506641,"shapeType":1,"rotation":5.647375239281797,"properties":{"width":75.01987994712377,"height":160.91778590538058}}]';
         let json7 = '[{"xpos":202.77697801132805,"ypos":438.7985789016433,"shapeType":1,"rotation":1.6827607097213022,"properties":{"width":65.19218346876241,"height":81.20813013904072}},{"xpos":375.39481216013405,"ypos":256.9021241555944,"shapeType":2,"rotation":4.487276690078188,"properties":{"radius":60.128962062978566}}]';
-        let json8 = '[{"xpos":277.5689620527302,"ypos":605.9286650024841,"shapeType":1,"rotation":5.488000456649611,"properties":{"width":148.65017407217584,"height":177.36815615513513}},{"xpos":347.96776647239267,"ypos":611.3406337593758,"shapeType":3,"rotation":4.875277369441641,"properties":{"slope":1,"width":69.58921422788849,"height":167.57590453962968}},{"xpos":132.54008636243043,"ypos":416.6098260317731,"shapeType":0,"rotation":5.004313430709568,"properties":{"length":71.98947150764735}}]'; 
+        let json8 = '[{"xpos":277.5689620527302,"ypos":605.9286650024841,"shapeType":1,"rotation":5.488000456649611,"properties":{"width":148.65017407217584,"height":177.36815615513513}},{"xpos":347.96776647239267,"ypos":611.3406337593758,"shapeType":3,"rotation":4.875277369441641,"properties":{"slope":1,"width":69.58921422788849,"height":167.57590453962968}},{"xpos":132.54008636243043,"ypos":416.6098260317731,"shapeType":0,"rotation":5.004313430709568,"properties":{"length":71.98947150764735}}]';
         let levelQueue = [decode(json), decode(json1), decode(json2), decode(json3), decode(json4), decode(json5), decode(json6), decode(json7), decode(json8)];
 
         function render_func() {
@@ -149,10 +149,10 @@ const MOUTH_SIZE = GAME_WIDTH/5;
             // for some reason, at SIZE_FACTOR, collisions are not detected but they are at 95% original speed 
             engine.world.gravity.y = SIZE_FACTOR * .95;
 
-            fruit = Bodies.circle(GAME_WIDTH / 2, 150 * SIZE_FACTOR, BALL_RADIUS, {isStatic : true});
+            fruit = Bodies.circle(GAME_WIDTH / 2, 150 * SIZE_FACTOR, BALL_RADIUS, { isStatic: true });
             fruit.collisionFilter.group = -1;
 
-            Body.setPosition(mouth, {x: GAME_WIDTH / 2, y: GAME_HEIGHT - 170 * SIZE_FACTOR});
+            Body.setPosition(mouth, { x: GAME_WIDTH / 2, y: GAME_HEIGHT - 170 * SIZE_FACTOR });
 
             // create a renderer
             render = Render.create({
@@ -168,7 +168,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
             });
 
             // add all of the bodies to the world
-            if(levelQueue.length != 0) {
+            if (levelQueue.length != 0) {
                 World.add(engine.world, [ground, fruit, mouth/*, button*/].concat(levelQueue.shift())/*.concat(decode(levelQueue.shift()))*/);
             }
 
@@ -231,7 +231,7 @@ const MOUTH_SIZE = GAME_WIDTH/5;
 
         function jShape_to_matterShape(jShape) {
             let shape;
-            switch(jShape.shapeType){
+            switch (jShape.shapeType) {
                 case 0:
                     shape = Bodies.rectangle(jShape.xpos, jShape.ypos, jShape.properties.length, jShape.properties.length, { isStatic: true });
                     break;
@@ -266,8 +266,11 @@ const MOUTH_SIZE = GAME_WIDTH/5;
     startPlayer();
 
 
-// Close and execute the IIFE here
+    // Close and execute the IIFE here
 })();
+
+
+// other functions that interact with HTML
 
 // activates on hold and drag
 function move(event) {
@@ -286,12 +289,12 @@ function move(event) {
 }
 
 // takes care of click and touch click events
-document.onclick= function(event) {
+document.onclick = function (event) {
     // activates phase 2 if you touch the top 5th of the screen
     const CUTOFF = GAME_HEIGHT / 5;
     let mousey = event.clientY;
 
-    if(mousey <= CUTOFF) {
+    if (mousey <= CUTOFF) {
         phase2();
     }
 };
@@ -302,8 +305,8 @@ function phase2() {
     Body.setStatic(fruit, false);
 }
 
-document.addEventListener("keypress", function(event) {
+document.addEventListener("keypress", function (event) {
     if (event.key == ' ') {
-      phase2();
+        phase2();
     }
 });
