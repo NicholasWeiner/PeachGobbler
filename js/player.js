@@ -169,7 +169,7 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
 
             // add all of the bodies to the world
             if (levelQueue.length != 0) {
-                World.add(engine.world, [ground, fruit, mouth/*, button*/].concat(levelQueue.shift())/*.concat(decode(levelQueue.shift()))*/);
+                World.add(engine.world, [ground, fruit, mouth].concat(levelQueue.shift())/*.concat(decode(levelQueue.shift()))*/);
             }
 
             // run the engine
