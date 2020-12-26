@@ -261,8 +261,6 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
     /////////////////////////////////////
     // Mainline logic
     /////////////////////////////////////
-
-    // Begin the arbitrary thing example loop
     startPlayer();
 
 
