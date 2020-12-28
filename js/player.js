@@ -124,7 +124,7 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
         butHeight = 100 * SIZE_FACTOR;
         button = Bodies.rectangle(GAME_WIDTH - butHeight * 1.5, butHeight * 1.5, butWidth, butHeight, { isStatic: true });
 
-        let level = 1;
+        let levelIterator = 1;
         let json = '[{"xpos":296.04969113272455,"ypos":296.9246157592158,"shapeType":1,"rotation":2.8970397822470453,"properties":{"width":98.22653961869237,"height":66.28608161010914}},{"xpos":159.95817405600124,"ypos":349.4683553241442,"shapeType":4,"rotation":0.6049009232817155,"properties":{"slope":2,"width":120.68025905586347,"height":141.06125392730237}}]';
         let json1 = '[{"xpos":119.13535473516163,"ypos":462.32563968296074,"shapeType":1,"rotation":3.7404756835945845,"properties":{"width":85.5249395499793,"height":54.37824772255924}},{"xpos":173.9080312165458,"ypos":429.96031702585606,"shapeType":2,"rotation":2.3056576771462844,"properties":{"radius":75.18129493025866}},{"xpos":209.0344193052301,"ypos":410.2555824470453,"shapeType":0,"rotation":2.373170842975902,"properties":{"length":162.64133664634107}},{"xpos":157.49602491072824,"ypos":566.5367552278203,"shapeType":0,"rotation":2.049697007884801,"properties":{"length":77.95300291137153}}]';
         let json2 = '[{"xpos":111.70738226872875,"ypos":291.9143324011509,"shapeType":1,"rotation":4.926676457854034,"properties":{"width":121.5621390228912,"height":167.8990135151037}},{"xpos":230.13436863902632,"ypos":547.2361402845762,"shapeType":4,"rotation":1.278674237373954,"properties":{"slope":2,"width":98.06936394503997,"height":83.24788389530286}},{"xpos":93.09469677740574,"ypos":278.7937975549847,"shapeType":3,"rotation":3.6068022419160566,"properties":{"slope":1,"width":134.75926227942207,"height":155.2564914281312}},{"xpos":268.9813379922802,"ypos":638.8381108794143,"shapeType":3,"rotation":5.987996685432264,"properties":{"slope":1,"width":78.0692141311929,"height":139.64872708906026}},{"xpos":346.5566984615984,"ypos":388.5917451996556,"shapeType":0,"rotation":2.3952118934414504,"properties":{"length":130.15944428833367}}]';
@@ -138,7 +138,7 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
 
         function render_func() {
 
-            document.getElementById("bar-label").innerHTML = 'LEVEL:' + '\xa0' + '\xa0' + level;
+            document.getElementById("bar-label").innerHTML = 'LEVEL:' + '\xa0' + '\xa0' + levelIterator;
 
             canMovePlayer = true;
 
@@ -212,7 +212,7 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
             render.context = null;
             render.textures = {};
 
-            level++;
+            levelIterator++;
             render_func();
         }
 
