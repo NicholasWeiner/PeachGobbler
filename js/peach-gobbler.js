@@ -1,8 +1,9 @@
+'use strict';
 const db = firebase.firestore();
 
 const values = {
-    "fill_colors": ['red', 'green', 'blue'],
-    "line_colors": ['red', 'green', 'blue'],
+    "fillColors": ['red', 'green', 'blue'],
+    "lineColors": ['red', 'green', 'blue'],
     "shape": ['triangle', 'rectangle', 'circle']
 };
 
@@ -36,8 +37,8 @@ function shuffle(a) {
 }
 
 function selectRule() {
-    let variable = randomElement(Object.entries(values));
-    let randArray = shuffle([0, 1, 2]);
+    const variable = randomElement(Object.entries(values));
+    const randArray = shuffle([0, 1, 2]);
     let result = {};
 
     variable[1].forEach((key, i) => result[key] = randArray[i])
@@ -62,7 +63,7 @@ function generateLevels(num, low, high) {
 
     let arr = [];
     while (arr.length < num) {
-        let r = Math.floor(Math.random() * levels.length);
+        const r = Math.floor(Math.random() * levels.length);
         if (arr.indexOf(r) === -1) arr.push(r);
     }
 
