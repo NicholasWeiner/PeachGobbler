@@ -2,9 +2,9 @@
 const db = firebase.firestore();
 
 const values = {
-    "fillColors": ['red', 'green', 'blue'],
-    "lineColors": ['red', 'green', 'blue'],
-    "shape": ['triangle', 'rectangle', 'circle']
+    'fillColors': ['red', 'green', 'blue'],
+    'lineColors': ['red', 'green', 'blue'],
+    'shape': ['triangle', 'rectangle', 'circle']
 };
 
 // adjust these constants to change cutoffs
@@ -47,10 +47,10 @@ function selectRule() {
 
 function generateLevels(num, low, high) {
     let levels = [];
-    db.collection("PGLevels")
-        .where("score", ">=", low)
-        .where("score", "<=", high)
-        .where("rule", "=", selectRule())
+    db.collection('PGLevels')
+        .where('score', '>=', low)
+        .where('score', '<=', high)
+        .where('rule', '=', selectRule())
         .get()
         .then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
@@ -58,17 +58,17 @@ function generateLevels(num, low, high) {
             });
         })
         .catch(function (error) {
-            console.log("Error getting documents: ", error);
+            console.log('Error getting documents: ', error);
         });
 
     let arr = [];
     while (arr.length < num) {
-        const r = Math.floor(Math.random() * levels.length);
-        if (arr.indexOf(r) === -1) arr.push(r);
+        const randIndex = Math.floor(Math.random() * levels.length);
+        if (arr.indexOf(randIndex) === -1) arr.push(randIndex);
     }
 
-    let map = arr.map(x => levels[x]);
+    const map = arr.map(index => levels[index]);
     // sort result for preprocessing
-    map = map.sort((a, b) => a.score - b.score);
-    return map.map(x => x.geometry);
+    const sortedMap = map.sort((a, b) => a.score - b.score);
+    return sortedMap.map(level => level.geometry);
 }

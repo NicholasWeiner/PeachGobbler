@@ -1,24 +1,25 @@
 // This line enables 'strict mode'. It helps you to write cleaner code,
 // like preventing you from using undeclared variables.
-"use strict";
+'use strict';
 
 // Player for PeachGobbler
 // module aliases
-const Engine = Matter.Engine,
-    Render = Matter.Render,
-    World = Matter.World,
-    Bodies = Matter.Bodies,
-    Body = Matter.Body,
-    Events = Matter.Events;
+const Engine = Matter.Engine;
+const Render = Matter.Render;
+const World = Matter.World;
+const Bodies = Matter.Bodies;
+const Body = Matter.Body;
+const Events = Matter.Events;
+
+let mouth;
+let fruit;
+let ground;
+let butWidth;
+let butHeightl
+let button;
 
 let canMovePlayer = true;
-let mouth,
-    fruit,
-    ground,
-    butWidth,
-    butHeight,
-    button,
-    score = 0;
+let score = 0;
 
 /* 
  * Get the game field width/height.
@@ -59,7 +60,7 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
 
     // Grab some important values from the resizer
     let myCanvas = resizer.getCanvas();
-    //let myContext = myCanvas.getContext("2d");
+    //let myContext = myCanvas.getContext('2d');
 
     // Is the game volume muted?
     let volumeMuted = false;
@@ -93,24 +94,24 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
 
     /**
      * Confirm the user wants to restart the game
-     * (restart not yet implemented, so show "not implemented" menu)
+     * (restart not yet implemented, so show 'not implemented' menu)
      */
-    template.addConfirm(template.menuButtons.restart, "RESTART", function () {
+    template.addConfirm(template.menuButtons.restart, 'RESTART', function () {
         template.showMenu(template.menus.notImplemented);
     });
 
     // Confirm if the user wants to exit the game (takes user to main website)
-    template.addConfirm(template.menuButtons.exit, "EXIT", template.goToBGL);
+    template.addConfirm(template.menuButtons.exit, 'EXIT', template.goToBGL);
 
     // Change icon of volume button on click
-    template.menuButtons.volume.addEventListener("click", function () {
+    template.menuButtons.volume.addEventListener('click', function () {
         volumeMuted = !volumeMuted;
 
         if (volumeMuted) {
-            template.setIcon(template.menuButtons.volume, "no-volume-icon");
+            template.setIcon(template.menuButtons.volume, 'no-volume-icon');
         }
         else {
-            template.setIcon(template.menuButtons.volume, "volume-icon");
+            template.setIcon(template.menuButtons.volume, 'volume-icon');
         }
     }, false);
 
@@ -170,7 +171,7 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
 
         function renderPlayer() {
 
-            document.getElementById("bar-label").innerHTML =
+            document.getElementById('bar-label').innerHTML =
                 'LEVEL:' + '\xa0' + '\xa0' + levelIterator;
 
             canMovePlayer = true;
@@ -230,7 +231,7 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
                 if (bodyA === fruit || bodyB === fruit) {
                     // if one is mouth and the other is fruit, win condition
                     if (bodyA === mouth || bodyB === mouth) {
-                        console.log("win");
+                        console.log('win');
                         /*
                          * uses the difference in position of the bodies to 
                          * calculate accuracy
@@ -240,7 +241,7 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
                     }
                     // if one is ground and the other is fruit, lose
                     else if (bodyA === ground || bodyB === ground) {
-                        console.log("lose");
+                        console.log('lose');
                         score += MOUTH_SIZE;
                         clear();
                     }
@@ -250,8 +251,8 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
 
         // clears world and gets it ready for next level
         function clear() {
-            //console.log("cleared");
-            console.log("score: " + score)
+            //console.log('cleared');
+            console.log('score: ' + score)
             World.clear(engine.world);
             Engine.clear(engine);
             Render.stop(render);
@@ -366,18 +367,18 @@ document.onclick = function (event) {
     let mousey = event.clientY;
 
     if (mousey <= CUTOFF) {
-        phase2();
+        gamePhaseTwo();
     }
 };
 
 // makes the player unable to move and starts the fruit's physics
-function phase2() {
+function gamePhaseTwo() {
     canMovePlayer = false;
     Body.setStatic(fruit, false);
 }
 
-document.addEventListener("keypress", function (event) {
+document.addEventListener('keypress', function (event) {
     if (event.key === ' ') {
-        phase2();
+        gamePhaseTwo();
     }
 });
