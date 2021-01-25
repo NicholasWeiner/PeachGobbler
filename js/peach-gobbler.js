@@ -2,9 +2,9 @@
 const db = firebase.firestore();
 
 const values = {
-    'fillColors': ['red', 'green', 'blue'],
-    'lineColors': ['red', 'green', 'blue'],
-    'shape': ['triangle', 'rectangle', 'circle']
+    fillColors: ['red', 'green', 'blue'],
+    lineColors: ['red', 'green', 'blue'],
+    shape: ['triangle', 'rectangle', 'circle']
 };
 
 // adjust these constants to change cutoffs
