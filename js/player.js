@@ -15,7 +15,7 @@ let mouth;
 let fruit;
 let ground;
 let butWidth;
-let butHeightl
+let butHeight;
 let button;
 
 let canMovePlayer = true;
@@ -226,7 +226,7 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
 
             // runs collision events (win/lose)
             Events.on(engine, 'collisionStart', function (event) {
-                const { bodyA: bodyA, bodyB: bodyB } = event.pairs[0];
+                const { bodyA, bodyB } = event.pairs[0];
 
                 if (bodyA === fruit || bodyB === fruit) {
                     // if one is mouth and the other is fruit, win condition
@@ -276,11 +276,11 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
 
         function jShape_to_matterShape(jShape) {
             const {
-                xpos: xpos,
-                ypos: ypos,
-                shapeType: shapeType,
-                rotation: rotation,
-                properties: properties
+                xpos,
+                ypos,
+                shapeType,
+                rotation,
+                properties
             } = jShape;
             let shape;
             switch (shapeType) {
