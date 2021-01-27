@@ -225,8 +225,8 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
             Render.run(render);
 
             // runs collision events (win/lose)
-            Events.on(engine, 'collisionStart', function (event) {
-                const { bodyA, bodyB } = event.pairs[0];
+            Events.on(engine, 'collisionStart', function ({ pairs }) {
+                const { bodyA, bodyB } = pairs[0];
 
                 if (bodyA === fruit || bodyB === fruit) {
                     // if one is mouth and the other is fruit, win condition
@@ -274,14 +274,13 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
             return shapes;
         }
 
-        function jShape_to_matterShape(jShape) {
-            const {
-                xpos,
-                ypos,
-                shapeType,
-                rotation,
-                properties
-            } = jShape;
+        function jShape_to_matterShape({
+            xpos,
+            ypos,
+            shapeType,
+            rotation,
+            properties
+        }) {
             let shape;
             switch (shapeType) {
                 case 0:
@@ -346,9 +345,9 @@ const MOUTH_SIZE = GAME_WIDTH / 5;
 // other functions that interact with HTML
 
 // activates on hold and drag
-function move(event) {
+function move({ touches }) {
     if (canMovePlayer) {
-        let mousex = event.touches[0].clientX;
+        let mousex = touches[0].clientX;
         if (mousex > GAME_WIDTH) {
             mousex = GAME_WIDTH;
         }
@@ -361,10 +360,10 @@ function move(event) {
 }
 
 // takes care of click and touch click events
-document.onclick = function (event) {
+document.onclick = function ({ clientY }) {
     // activates phase 2 if you touch the top 5th of the screen
     const CUTOFF = GAME_HEIGHT / 5;
-    let mousey = event.clientY;
+    let mousey = clientY;
 
     if (mousey <= CUTOFF) {
         gamePhaseTwo();
@@ -377,8 +376,8 @@ function gamePhaseTwo() {
     Body.setStatic(fruit, false);
 }
 
-document.addEventListener('keypress', function (event) {
-    if (event.key === ' ') {
+document.addEventListener('keypress', function ({ key }) {
+    if (key === ' ') {
         gamePhaseTwo();
     }
 });
